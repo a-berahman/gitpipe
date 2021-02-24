@@ -1,0 +1,7 @@
+env.yaml
+command.bash
+go.mod
+go.sum
+.vscode
+*.pem
+.idea
