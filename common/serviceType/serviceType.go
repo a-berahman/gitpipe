@@ -1,4 +1,4 @@
-package serviceType
+package servicetype
 
 const (
 	Pipedrive = iota

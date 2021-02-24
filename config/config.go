@@ -17,20 +17,19 @@ type config struct {
 	GitHub    GitHub    `yaml:"GITHUB"`
 }
 
+//Pipedrive configuration
 type Pipedrive struct {
 	MainURL        string `yaml:"MAIN_URL"`
 	AddActivityURL string `yaml:"ADD_ACTIVITY_URL"`
 	TOKEN          string `yaml:"TOKEN"`
 }
 
+//GitHub configuration
 type GitHub struct {
 	MainURL  string `yaml:"MAIN_URL"`
 	GistURL  string `yaml:"GIST_URL"`
 	TOKEN    string `yaml:"TOKEN"`
 	Username string `yaml:"USERNAME"`
-}
-
-type SetupResult struct {
 }
 
 type unmarshaler struct{}

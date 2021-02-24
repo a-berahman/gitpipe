@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/a-berahman/gitpipe/common/serviceType"
+	servicetype "github.com/a-berahman/gitpipe/common/serviceType"
 	"github.com/a-berahman/gitpipe/models"
 	"github.com/a-berahman/gitpipe/services/github"
 	"github.com/a-berahman/gitpipe/services/pipedrive"
@@ -11,9 +11,9 @@ import (
 // - solution is implemented by Factory design pattern
 func GetService(serviceConst int) interface{} {
 	switch serviceConst {
-	case serviceType.Pipedrive:
+	case servicetype.Pipedrive:
 		return pipedrive.NewPipedrive()
-	case serviceType.GitHub:
+	case servicetype.GitHub:
 		return github.NewGitHub()
 	}
 	return nil

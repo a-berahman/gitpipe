@@ -1,5 +1,6 @@
 package common
 
 const (
-	ROOT_DIR = "C:\\Source\\Go\\src\\github.com\\a-berahman\\gitpipe\\"
+	//RootDir is static direction of project
+	RootDir = "C:\\Source\\Go\\src\\github.com\\a-berahman\\gitpipe\\"
 )
