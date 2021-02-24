@@ -27,7 +27,11 @@ func (g *GitHub) GetPublicGistsByUsername(username string) (result []models.Gist
 	res := []GistsForUserRS{}
 	headers := make(map[string]string)
 	addAuthentication(headers)
-
+	fmt.Println(username)
+	fmt.Println(config.CFG.GitHub.GistURL)
+	fmt.Println(config.CFG.GitHub.MainURL)
+	fmt.Println(fmt.Sprintf(config.CFG.GitHub.GistURL, username))
+	fmt.Println(fmt.Sprintf("%v%v", config.CFG.GitHub.MainURL, fmt.Sprintf(config.CFG.GitHub.GistURL, username)))
 	err = sendGetRequestAndCheckResponse(&res,
 		fmt.Sprintf("%v%v", config.CFG.GitHub.MainURL, fmt.Sprintf(config.CFG.GitHub.GistURL, username)),
 		headers)

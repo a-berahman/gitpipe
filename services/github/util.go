@@ -12,7 +12,7 @@ func sendGetRequestAndCheckResponse(resModel interface{}, url string, headers ma
 	err := makeGetHTTPCall(resModel, url, headers)
 	if err != nil {
 
-		logger.Logger().Errorw("http GET call to Jibit failed",
+		logger.Logger().Errorw("http GET call to GitHub failed",
 			"error", err,
 			"URL", url,
 			"RS", resModel,
@@ -23,9 +23,9 @@ func sendGetRequestAndCheckResponse(resModel interface{}, url string, headers ma
 
 }
 
-func makeGetHTTPCall(resModel interface{}, urlConst string, headers map[string]string) error {
+func makeGetHTTPCall(resModel interface{}, url string, headers map[string]string) error {
 
-	res, err := rest.GetJSON(urlConst, headers)
+	res, err := rest.GetJSON(url, headers)
 	if err != nil {
 		return err
 	}
