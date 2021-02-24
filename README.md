@@ -1,5 +1,5 @@
 # Welcome to GitPipe!
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Go Report Card](https://goreportcard.com/badge/github.com/a-berahman/gitpipe)](https://goreportcard.com/report/github.com/a-berahman/gitpipe) 
 
 This is the code repository for my challenge with Golang
 ## Requirments and Goals
