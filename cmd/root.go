@@ -5,7 +5,6 @@ import (
 
 	"os"
 
-	"github.com/a-berahman/gitpipe/utility/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -17,13 +16,7 @@ var rootCMD = &cobra.Command{
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
 	rootCMD.PersistentFlags().StringVarP(&configPath, "config-path", "c", "env.yaml", "path to config directory")
-
-}
-
-func initConfig() {
-	logger.Initialize()
 }
 
 //Execute runs through the command tree finding appropriate matches for commands and then corresponding flags

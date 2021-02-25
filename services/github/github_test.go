@@ -9,7 +9,7 @@ import (
 )
 
 func TestFirst(t *testing.T) {
-	config.LoadConfig(fmt.Sprintf("%v%v", common.ROOT_DIR, "env.yaml"))
+	config.LoadConfig(fmt.Sprintf("%v%v", common.RootDir, "env.yaml"))
 	//#################################################
 	handler := NewGitHub()
 	t.Run("getPublicGists", func(t *testing.T) {

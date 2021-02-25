@@ -8,6 +8,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
+	"github.com/a-berahman/gitpipe/utility/logger"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 )
@@ -15,21 +16,28 @@ import (
 type config struct {
 	Pipedrive Pipedrive `yaml:"PIPEDRIVE"`
 	GitHub    GitHub    `yaml:"GITHUB"`
+	MongoInfo MongoInfo `yaml:"MONGO_INFO"`
 }
 
-//Pipedrive configuration
+//Pipedrive presents Pipedrive API configuration
 type Pipedrive struct {
 	MainURL        string `yaml:"MAIN_URL"`
 	AddActivityURL string `yaml:"ADD_ACTIVITY_URL"`
 	TOKEN          string `yaml:"TOKEN"`
 }
 
-//GitHub configuration
+//GitHub presents GitHub API configuration
 type GitHub struct {
 	MainURL  string `yaml:"MAIN_URL"`
 	GistURL  string `yaml:"GIST_URL"`
 	TOKEN    string `yaml:"TOKEN"`
 	Username string `yaml:"USERNAME"`
+}
+
+// MongoInfo presents mongo db configuration
+type MongoInfo struct {
+	URL    string `yaml:"URL"`
+	DBName string `yaml:"DB_NAME"`
 }
 
 type unmarshaler struct{}
@@ -44,7 +52,7 @@ func (unmarshaler) Unmarshal(d []byte, v *map[string]map[string]string) error {
 var CFG config
 
 //LoadConfig loads and initializes config list
-func LoadConfig(configPath string) {
+func LoadConfig(configPath string) *DB {
 
 	viper.SetEnvPrefix("GITPIPE")
 	viper.AddConfigPath(".")
@@ -67,5 +75,8 @@ func LoadConfig(configPath string) {
 		fmt.Println("Error in un-marshaling config")
 		panic(err)
 	}
+	logger.Initialize()
+	dbInstance := getDBInstance()
 
+	return dbInstance
 }

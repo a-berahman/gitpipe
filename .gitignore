@@ -1,4 +1,4 @@
-env.yaml
+*.yaml
 command.bash
 go.mod
 go.sum
