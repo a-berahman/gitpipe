@@ -1,7 +1,7 @@
 package gist
 
 import (
-	"fmt"
+	"os"
 	"testing"
 
 	"github.com/a-berahman/gitpipe/common"
@@ -10,13 +10,17 @@ import (
 )
 
 func TestFirstGist(t *testing.T) {
-	db := config.LoadConfig(fmt.Sprintf("%v%v", common.RootDir, "env.yaml"))
+	if common.AppMode == common.TestMode {
+		os.Setenv("ENV_URL", common.ConfigDir)
+	}
+
+	db := config.LoadConfig(os.Getenv(common.EnvURL))
 	//#################################################
 	handler := NewGist(db)
 	userid := uuid.New().String()
 	t.Run("GetGistByUserID", func(t *testing.T) {
 
-		err := handler.Create(uuid.New().String(), userid, uuid.New().String())
+		err := handler.Create(uuid.New().String(), userid, 0)
 		if err != nil {
 			t.Fatal("expected error to be nil")
 		}

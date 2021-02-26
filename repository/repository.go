@@ -22,13 +22,14 @@ func GetRepository(repositoryConst int, db *config.DB) interface{} {
 
 //Gister is implemented by objects that promote Gist Repository
 type Gister interface {
-	Create(string, string, string) error
-	GetByUserID(string) ([]*models.Gist, error)
+	Create(title, userID string, referenceID int) error
+	GetByUserID(userID string) (map[string]*models.Gist, error)
 }
 
 //Userer is implemented by objects that promote User  Repository
 type Userer interface {
-	Create(string) error
-	GetByUsername(string) (models.User, error)
+	Create(username string) error
+	GetByUsername(username string) (models.User, error)
 	GetAll() ([]*models.User, error)
+	UpdateLastCheck(username string) error
 }

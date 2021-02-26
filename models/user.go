@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-//User presents user schema for DB
+//User represents User data model
 type User struct {
 	ID        primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	Username  string             `json:"username" bson:"username"`

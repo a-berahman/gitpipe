@@ -22,7 +22,7 @@ func NewPipedrive() *Pipedrive {
 	}
 }
 
-//InsertActivityByGists adds new activity via pipedrive api
+// InsertActivityByGists adds new activity via pipedrive api
 func (p *Pipedrive) InsertActivityByGists(gist models.Gists) (activityID int, err error) {
 	fmt.Println(time.Now().Format("2006-01-02"))
 	req := AddActivityRQ{
@@ -48,4 +48,33 @@ func (p *Pipedrive) InsertActivityByGists(gist models.Gists) (activityID int, er
 		return 0, fmt.Errorf(res.Error.Error)
 	}
 	return res.Data.ID, nil
+}
+
+//GetActivityByID returns an activity by ID
+func (p *Pipedrive) GetActivityByID(id int) (activity models.Activity, err error) {
+
+	res := GetActivityRS{}
+	if err = sendGetRequestAndCheckResponse(&res, fmt.Sprintf("%v%v", config.CFG.Pipedrive.MainURL, fmt.Sprintf(config.CFG.Pipedrive.GetActivityURL, id)), make(map[string]string)); err != nil {
+		p.log.Errorw("failed to send get activity request",
+			"URL", fmt.Sprintf("%v%v", config.CFG.Pipedrive.MainURL, fmt.Sprintf(config.CFG.Pipedrive.GetActivityURL, id)),
+			"error", err,
+		)
+		return activity, err
+
+	}
+	if !res.Success {
+		p.log.Errorw("GetActivityByID has some problem in response",
+			"Success", res.Success,
+			"Error", res.Error.Error,
+			"ErrorCode", res.Error.ErrorCode,
+		)
+
+		return activity, fmt.Errorf(res.Error.Error)
+	}
+
+	activity.Note = res.Data.Note
+	activity.ID = res.Data.ID
+	activity.Subject = res.Data.Subject
+
+	return activity, nil
 }

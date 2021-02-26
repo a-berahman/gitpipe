@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/a-berahman/gitpipe/config"
@@ -102,6 +103,41 @@ func (u *UserRepository) GetAll() ([]*models.User, error) {
 		}
 		result = append(result, &user)
 	}
-
+	//descending by Last check time
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].LastCheck.After(result[j].LastCheck)
+	})
 	return result, nil
+}
+
+// UpdateLastCheck updates lastcheck value
+func (u *UserRepository) UpdateLastCheck(username string) error {
+	currUser, err := u.GetByUsername(username)
+	if err != nil {
+		u.log.Errorw("failed to get user by username in updateLastCheck",
+			"error", err,
+		)
+		return err
+	}
+	fmt.Println(currUser.ID.Hex())
+
+	currTime := time.Now()
+	res, err := u.db.User.UpdateOne(context.Background(),
+		bson.M{"_id": currUser.ID},
+		bson.M{
+			"$set": bson.M{"last_check": currTime},
+		})
+	if err != nil {
+		u.log.Errorw("failed to update user last_check",
+			"error", err,
+			"user id", currUser.ID,
+		)
+		return err
+	}
+	u.log.Infow("update user last_check",
+		"result", res.ModifiedCount,
+		"user id", currUser.ID,
+		"update time", currTime,
+	)
+	return nil
 }

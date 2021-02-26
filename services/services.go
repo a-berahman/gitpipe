@@ -1,7 +1,7 @@
 package services
 
 import (
-	servicetype "github.com/a-berahman/gitpipe/common/serviceType"
+	servicetype "github.com/a-berahman/gitpipe/common/servicetype"
 	"github.com/a-berahman/gitpipe/models"
 	"github.com/a-berahman/gitpipe/services/github"
 	"github.com/a-berahman/gitpipe/services/pipedrive"
@@ -21,10 +21,11 @@ func GetService(serviceConst int) interface{} {
 
 // Githuber is implemented by objects that promote GitHub API features
 type Githuber interface {
-	GetPublicGistsByUsername(string) (models.Gists, error)
+	GetPublicGistsByUsername(username string) (result []models.Gists, err error)
 }
 
 // Pipedriver is implemented by objects that promote Pipedrive API features
 type Pipedriver interface {
-	InsertActivityByGists(models.Gists) (int, error)
+	InsertActivityByGists(gist models.Gists) (activityID int, err error)
+	GetActivityByID(id int) (models.Activity, error)
 }

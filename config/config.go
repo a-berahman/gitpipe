@@ -24,6 +24,7 @@ type Pipedrive struct {
 	MainURL        string `yaml:"MAIN_URL"`
 	AddActivityURL string `yaml:"ADD_ACTIVITY_URL"`
 	TOKEN          string `yaml:"TOKEN"`
+	GetActivityURL string `yaml:"GET_ACTIVITY_URL"`
 }
 
 //GitHub presents GitHub API configuration

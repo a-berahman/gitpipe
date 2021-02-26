@@ -2,6 +2,7 @@ package user
 
 import (
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -10,7 +11,10 @@ import (
 )
 
 func TestFirstUser(t *testing.T) {
-	db := config.LoadConfig(fmt.Sprintf("%v%v", common.RootDir, "env.yaml"))
+	if common.AppMode == common.TestMode {
+		os.Setenv("ENV_URL", common.ConfigDir)
+	}
+	db := config.LoadConfig(os.Getenv(common.EnvURL))
 	//#################################################
 	handler := NewUser(db)
 	username := fmt.Sprintf("%v_%v", "user", time.Now().Format(time.Kitchen))
@@ -40,4 +44,13 @@ func TestFirstUser(t *testing.T) {
 			t.Fatal("expected users length to be more than 0")
 		}
 	})
+
+	t.Run("UpdateUserByUsername", func(t *testing.T) {
+		err := handler.UpdateLastCheck(username)
+		if err != nil {
+			t.Fatal("expected error to be nil")
+		}
+
+	})
+
 }

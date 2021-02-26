@@ -1,6 +1,6 @@
 package models
 
-//Gists is model for Gist data
+//Gists represents Gist data model
 type Gists struct {
 	URL        string `json:"url"`
 	ID         string `json:"id"`
@@ -8,7 +8,7 @@ type Gists struct {
 	ExteraInfo string `json:"extera_info"`
 }
 
-//File ...
+//File represents File data model
 type File struct {
 	Filename string      `json:"filename"`
 	Type     string      `json:"type"`
@@ -17,7 +17,7 @@ type File struct {
 	Size     int         `json:"size"`
 }
 
-//Owner ...
+//Owner represents Owner data model
 type Owner struct {
 	Login             string `json:"login"`
 	ID                int    `json:"id"`

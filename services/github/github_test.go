@@ -1,7 +1,7 @@
 package github
 
 import (
-	"fmt"
+	"os"
 	"testing"
 
 	"github.com/a-berahman/gitpipe/common"
@@ -9,7 +9,10 @@ import (
 )
 
 func TestFirst(t *testing.T) {
-	config.LoadConfig(fmt.Sprintf("%v%v", common.RootDir, "env.yaml"))
+	if common.AppMode == common.TestMode {
+		os.Setenv("ENV_URL", common.ConfigDir)
+	}
+	config.LoadConfig(os.Getenv(common.EnvURL))
 	//#################################################
 	handler := NewGitHub()
 	t.Run("getPublicGists", func(t *testing.T) {

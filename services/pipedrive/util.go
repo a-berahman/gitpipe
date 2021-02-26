@@ -24,7 +24,20 @@ func sendPostRequestAndCheckResponse(req interface{}, resModel interface{}, url 
 	return nil
 
 }
+func sendGetRequestAndCheckResponse(resModel interface{}, url string, headers map[string]string) error {
+	err := makeGetHTTPCall(resModel, addToken(url), headers)
+	if err != nil {
 
+		logger.Logger().Errorw("http GET call to Pipedrive failed",
+			"error", err,
+			"URL", url,
+			"RS", resModel,
+		)
+		return err
+	}
+	return nil
+
+}
 func makePostHTTPCall(req interface{}, resModel interface{}, url string) error {
 
 	d, err := initializeRequestBody(req)
@@ -43,7 +56,20 @@ func makePostHTTPCall(req interface{}, resModel interface{}, url string) error {
 
 	return nil
 }
+func makeGetHTTPCall(resModel interface{}, url string, headers map[string]string) error {
 
+	res, err := rest.GetJSON(url, headers)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(res, &resModel)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 func initializeRequestBody(req interface{}) ([]byte, error) {
 	r, err := json.Marshal(req)
 	if err != nil {

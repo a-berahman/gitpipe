@@ -3,6 +3,7 @@ package gist
 import (
 	"context"
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/a-berahman/gitpipe/config"
@@ -25,7 +26,7 @@ func NewGist(db *config.DB) *GistRepository {
 }
 
 //Create creates new gist
-func (g *GistRepository) Create(title, userID, referenceID string) error {
+func (g *GistRepository) Create(title, userID string, referenceID int) error {
 	//Here we initializing gist model for inserting in DB
 	gistModel := models.Gist{}
 	gistModel.ID = primitive.NewObjectID()
@@ -60,10 +61,10 @@ func (g *GistRepository) Create(title, userID, referenceID string) error {
 }
 
 // GetByUserID returns gist by userID
-func (g *GistRepository) GetByUserID(userID string) ([]*models.Gist, error) {
+func (g *GistRepository) GetByUserID(userID string) (map[string]*models.Gist, error) {
 
-	// Here's an array in which you can store the decoded documents
-	var result []*models.Gist
+	// Here's a map in which you can store the decoded documents
+	currenList := []*models.Gist{}
 	filter := bson.M{"user_id": userID}
 	curr, err := g.db.Gist.Find(context.TODO(), filter)
 	// Close the cursor once finished
@@ -88,8 +89,18 @@ func (g *GistRepository) GetByUserID(userID string) ([]*models.Gist, error) {
 			)
 			continue
 		}
-		result = append(result, &gist)
-	}
+		currenList = append(currenList, &gist)
 
+	}
+	//descending by Last check time
+	sort.Slice(currenList, func(i, j int) bool {
+		return currenList[i].CreateAt.After(currenList[j].CreateAt)
+	})
+
+	//preparing dictionary because we want to support O(1) complexty in search
+	result := make(map[string]*models.Gist)
+	for _, v := range currenList {
+		result[v.Title] = v
+	}
 	return result, nil
 }

@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/a-berahman/gitpipe/config"
+	"github.com/a-berahman/gitpipe/routes"
 	"github.com/a-berahman/gitpipe/utility/rest"
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
@@ -19,17 +20,15 @@ var serveCmd = &cobra.Command{
 
 // serve handles the serve command
 func serve() {
-
 	e := echo.New()
 	e.HideBanner = true
 	p := prometheus.NewPrometheus("gitpipe", nil)
 	p.Use(e)
-
-	config.LoadConfig(configPath)
-
+	//load and initialize pre-requests
+	db := config.LoadConfig(configPath)
 	rest.Initialize()
-
-	e.Logger.Fatal(e.Start(":1323"))
+	routes.Initialize(e, db)
+	e.Logger.Fatal(e.Start(":4312"))
 }
 
 func init() {
