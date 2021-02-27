@@ -21,13 +21,15 @@ phases:
       - echo DOCKER_HUB_USERNAME ${DOCKER_HUB_USERNAME} Password ${DOCKER_HUB_PASSWORD} IMAGE_REPO_NAME ${IMAGE_REPO_NAME} IMAGE_TAG ${IMAGE_TAG}
       - echo Logging in to Docker Hub...
       - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
-      - git clone https://github.com/a-berahman/gitpipe
+      # - git clone https://github.com/a-berahman/gitpipe
+      # - go get github.com/a-berahman/gitpipe
+
 
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} .
+      - docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} /app/
       - docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${IMAGE_REPO_NAME}:${IMAGE_TAG}
   
   post_build:
