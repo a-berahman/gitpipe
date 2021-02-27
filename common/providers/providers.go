@@ -1,4 +1,4 @@
-package servicetype
+package providers
 
 const (
 	//Pipedrive const/enum for service list

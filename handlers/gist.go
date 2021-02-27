@@ -6,9 +6,8 @@ import (
 	"sync"
 
 	"github.com/a-berahman/gitpipe/common"
-
+	"github.com/a-berahman/gitpipe/common/providers"
 	"github.com/a-berahman/gitpipe/common/repositorytype"
-	"github.com/a-berahman/gitpipe/common/servicetype"
 
 	"github.com/a-berahman/gitpipe/config"
 	"github.com/a-berahman/gitpipe/models"
@@ -33,8 +32,8 @@ func NewGist(db *config.DB) *GistHandler {
 	return &GistHandler{log: logger.Logger(),
 		GistRepository: repository.GetRepository(repositorytype.Gist, db).(repository.Gister),
 		UserRepository: repository.GetRepository(repositorytype.User, db).(repository.Userer),
-		PipeService:    services.GetService(servicetype.Pipedrive).(services.Pipedriver),
-		GitService:     services.GetService(servicetype.GitHub).(services.Githuber),
+		PipeService:    services.GetService(providers.Pipedrive).(services.Pipedriver),
+		GitService:     services.GetService(providers.GitHub).(services.Githuber),
 	}
 }
 

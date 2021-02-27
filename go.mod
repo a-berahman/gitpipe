@@ -3,7 +3,10 @@ module github.com/a-berahman/gitpipe
 go 1.15
 
 require (
+	github.com/VividCortex/gohistogram v1.0.0 // indirect
+	github.com/go-kit/kit v0.8.0
 	github.com/google/uuid v1.2.0
+	github.com/influxdata/influxdb v1.8.4 // indirect
 	github.com/labstack/echo-contrib v0.9.0
 	github.com/labstack/echo/v4 v4.2.0
 	github.com/mitchellh/mapstructure v1.4.1
