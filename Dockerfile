@@ -9,8 +9,9 @@ WORKDIR /app
 RUN go get github.com/a-berahman/gitpipe
 WORKDIR /go/src/github.com/a-berahman/gitpipe
 RUN ls /go/src/github.com/a-berahman/gitpipe
+RUN ls /go/
 RUN pwd
-RUN go build -o /bin/gitpipe
+RUN GOPATH=/go GOBIN=/go/bin  go build -o /bin/gitpipe
 # RUN go build -o /app/gitpipe
 # RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o gitpipe .
 
