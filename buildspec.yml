@@ -18,6 +18,7 @@ phases:
 
   pre_build: 
     commands:
+      - echo DOCKER_HUB_USERNAME ${DOCKER_HUB_USERNAME} Password ${DOCKER_HUB_PASSWORD} IMAGE_REPO_NAME ${IMAGE_REPO_NAME} IMAGE_TAG ${IMAGE_TAG}
       - echo Logging in to Docker Hub...
       - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
       - git clone https://github.com/a-berahman/gitpipe
