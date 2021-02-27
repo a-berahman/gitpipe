@@ -27,12 +27,15 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker images
+      - ecoh ${IMAGE_REPO_NAME}:${IMAGE_TAG}
       - docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} .
+      - docker images
       - docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${IMAGE_REPO_NAME}:${IMAGE_TAG}
   
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
+      - docker logout
+      - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
       - docker push ${IMAGE_REPO_NAME}:${IMAGE_TAG}
