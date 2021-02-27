@@ -37,5 +37,5 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker logout
-      - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
-      - docker push ${IMAGE_REPO_NAME}:${IMAGE_TAG}
+      - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD} docker.io
+      - docker push ahmadberahman/${IMAGE_REPO_NAME}:${IMAGE_TAG}
