@@ -1,11 +1,15 @@
 FROM golang:1.15 AS build
 
+RUN apk add --no-cache git
 RUN mkdir /app
 ADD . /app/
 WORKDIR /app
 
 
-RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o gitpipe .
+RUN go get github.com/a-berahman/gitpipe
+WORKDIR /go/src/github.com/a-berahman/gitpipe
+RUN go build -o /app/gitpipe
+# RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o gitpipe .
 
 FROM alpine:3.12
 
