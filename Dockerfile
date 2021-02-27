@@ -5,7 +5,6 @@ RUN mkdir /app
 ADD . /app/
 WORKDIR /app
 
-
 RUN go get github.com/a-berahman/gitpipe
 WORKDIR /go/src/github.com/a-berahman/gitpipe
 RUN go build -o /app/gitpipe

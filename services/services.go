@@ -1,7 +1,7 @@
 package services
 
 import (
-	servicetype "github.com/a-berahman/gitpipe/common/servicetype"
+	"github.com/a-berahman/gitpipe/common/servicetype"
 	"github.com/a-berahman/gitpipe/models"
 	"github.com/a-berahman/gitpipe/services/github"
 	"github.com/a-berahman/gitpipe/services/pipedrive"

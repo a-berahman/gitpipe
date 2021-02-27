@@ -7,7 +7,7 @@ import (
 
 	"github.com/a-berahman/gitpipe/common"
 	"github.com/a-berahman/gitpipe/common/repositorytype"
-	servicetype "github.com/a-berahman/gitpipe/common/servicetype"
+	"github.com/a-berahman/gitpipe/common/servicetype"
 	"github.com/a-berahman/gitpipe/config"
 	"github.com/a-berahman/gitpipe/models"
 	"github.com/a-berahman/gitpipe/repository"
