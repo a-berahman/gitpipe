@@ -1,6 +1,6 @@
 FROM golang:1.15 AS build
 
-RUN apk add --no-cache git
+
 RUN mkdir /app
 ADD . /app/
 WORKDIR /app
