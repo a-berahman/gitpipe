@@ -1,20 +1,10 @@
-FROM golang:1.15 AS build
-
+FROM golang:1.15-alpine AS build
 
 RUN mkdir /app
 ADD . /app
 WORKDIR /app/
-# RUN pwd
 
-# RUN go get github.com/a-berahman/gitpipe
-# WORKDIR /go/src/github.com/a-berahman/gitpipe
-# RUN ls /go/src/github.com/a-berahman/gitpipe
-# RUN ls /go/
-# RUN pwd
-# RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o /bin/gitpipe
 RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o gitpipe .
-# RUN go build -o /app/gitpipe
-# RUN GOPATH=/usr/go CGO_ENABLED=0 go build -o gitpipe .
 
 FROM alpine:3.12
 
@@ -24,7 +14,6 @@ RUN apk update && \
     apk add --update bash && \
     apk add --update tzdata && \
     chmod +x /app/gitpipe /app/entrypoint.sh
-
 
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["serve"]
