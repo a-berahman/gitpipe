@@ -12,7 +12,7 @@ var configPath string
 
 var rootCMD = &cobra.Command{
 	Use:   "gitpipe",
-	Short: "gitpipe handler of GitHub API and Pipedrive API",
+	Short: "gitpipe is a handler of GitHub API and Pipedrive API",
 }
 
 func init() {

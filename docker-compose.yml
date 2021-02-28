@@ -1,0 +1,27 @@
+version: "3"
+services:
+  app:
+    image: ahmadberahman/gitpipe:latest
+    container_name: gitpipe_app
+    restart: always
+    working_dir: /app
+    environment:   
+      - PIPEDRIVE_MAIN_URL=
+      - PIPEDRIVE_ADD_ACTIVITY_URL=activities
+      - PIPEDRIVE_GET_ACTIVITY_URL=activities/%v
+      - PIPEDRIVE_TOKEN=
+      - GITHUB_MAIN_URL=
+      - GITHUB_GIST_URL=users/%v/gists
+      - GITHUB_TOKEN=
+      - GITHUB_USERNAME=
+      - MONGO_URL=
+      - MONGO_DB_NAME=
+    ports:
+      - "4312:4312"
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: gitpipegp
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: web
+
