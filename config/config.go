@@ -2,15 +2,11 @@
 package config
 
 import (
-	"fmt"
-
-	"strings"
+	"os"
 
 	"gopkg.in/yaml.v2"
 
 	"github.com/a-berahman/gitpipe/utility/logger"
-	"github.com/mitchellh/mapstructure"
-	"github.com/spf13/viper"
 )
 
 type config struct {
@@ -54,28 +50,10 @@ var CFG config
 
 //LoadConfig loads and initializes config list
 func LoadConfig(configPath string) *DB {
+	CFG.Pipedrive = Pipedrive{MainURL: os.Getenv("PIPEDRIVE_MAIN_URL"), AddActivityURL: os.Getenv("PIPEDRIVE_ADD_ACTIVITY_URL"), TOKEN: os.Getenv("PIPEDRIVE_TOKEN"), GetActivityURL: os.Getenv("PIPEDRIVE_GET_ACTIVITY_URL")}
+	CFG.GitHub = GitHub{MainURL: os.Getenv("GITHUB_MAIN_URL"), GistURL: os.Getenv("GITHUB_GIST_URL"), TOKEN: os.Getenv("GITHUB_TOKEN"), Username: os.Getenv("GITHUB_USERNAME")}
+	CFG.MongoInfo = MongoInfo{URL: os.Getenv("MONGO_URL"), DBName: os.Getenv("MONGO_DB_NAME")}
 
-	viper.SetEnvPrefix("GITPIPE")
-	viper.AddConfigPath(".")
-	viper.AutomaticEnv()
-	viper.SetConfigFile(configPath)
-	viper.AddConfigPath(".")
-	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-
-	err := viper.MergeInConfig()
-	if err != nil {
-		fmt.Println("Error in reading config")
-		panic(err)
-	}
-
-	err = viper.Unmarshal(&CFG, func(config *mapstructure.DecoderConfig) {
-		config.TagName = "yaml"
-	})
-
-	if err != nil {
-		fmt.Println("Error in un-marshaling config")
-		panic(err)
-	}
 	logger.Initialize()
 	dbInstance := getDBInstance()
 
