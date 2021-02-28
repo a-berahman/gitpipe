@@ -3,7 +3,6 @@
 
 This is the code repository for my challenge with Golang and Automation pipeline(CI/CD) with Dockerized, Scalability and Resilient  approach
 ## information
-![it is a mind map for peresenting](https://i.ibb.co/z6H3X9F/mind-map.jpg)
 
 ![automation](https://i.ibb.co/t8z0fNb/CICD.jpg)
 
@@ -16,6 +15,10 @@ finally, Through an Event Bridge, we call an API for Gists update for users ever
 *notes: in serverless services that I used in the architect, I pay only for usage, also handle HealthCheck, autoscaling and auto balancer with multi-region.
 
 ![application](https://i.ibb.co/k4K1L1J/applicaiton.jpg)
+
+Requirements:
+
+![it is a mind map for peresenting](https://i.ibb.co/z6H3X9F/mind-map.jpg)
 ## Installation
 For installing the dependencies and starting the server, please run below commands:
 ```sh
