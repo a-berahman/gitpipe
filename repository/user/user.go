@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/a-berahman/gitpipe/config"
@@ -28,6 +29,14 @@ func NewUser(db *config.DB) *UserRepository {
 //Create creates new user with username
 func (u *UserRepository) Create(username string) error {
 	//initialize user model
+	username = strings.Replace(username, " ", "", -1)
+	user, _ := u.GetByUsername(username)
+	if user.Username != "" {
+		u.log.Errorw("user exist",
+			"username", username,
+		)
+		return fmt.Errorf("user exist")
+	}
 	userModel := models.User{}
 	userModel.ID = primitive.NewObjectID()
 	userModel.CreateAt = time.Now()
