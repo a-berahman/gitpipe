@@ -25,17 +25,19 @@ Service: implements GitHub and Pipedrive APIs interface
 I used two design patterns, Factory for making instance from interfaces, and, future/promise to handle concurrency in the action that works as a gist list updater which runs every three hours.
 Each file has a unit-test, and whenever you run tests (go test ./...)  you can monitor the behaviour of the application through logs. Also, each function provides dedicate documentation.
 
-![first page](https://i.ibb.co/kMsyQvM/step1.jpg)
+
 
 The website has four actions. On the first page, you add a new username and see all users.
 
-![second page](https://i.ibb.co/3YxvRcQ/step2.jpg)
+![first page](https://i.ibb.co/kMsyQvM/step1.jpg)
 
 On the second step, you can choose any user and see the users Gist list.
 
-![third page](https://i.ibb.co/2q2rx0p/step3.jpg)
+![second page](https://i.ibb.co/3YxvRcQ/step2.jpg)
 
 In the third step, you can see the gist information.
+
+![third page](https://i.ibb.co/2q2rx0p/step3.jpg)
 
 Requirements:
 
