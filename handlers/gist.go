@@ -142,6 +142,7 @@ func (g *GistHandler) gistRefresher() error {
 			g.log.Infow("refresh succeed",
 				"username", username,
 			)
+
 			wg.Done()
 		}).Fail(func(username string, err error) {
 			g.log.Infow("refresh failed",
@@ -191,6 +192,7 @@ func gistRefreshAction(g *GistHandler, user models.User) (username string, err e
 				"gist", v,
 			)
 		}
+		g.UserRepository.UpdateLastCheck(user.Username)
 		g.GistRepository.Create(v.ID, user.ID.Hex(), referenceID)
 	}
 	return user.Username, err
