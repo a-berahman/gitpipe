@@ -165,7 +165,14 @@ func gistRefreshContext(g *GistHandler, user models.User) ExecuteFunc {
 	}
 }
 func gistRefreshAction(g *GistHandler, user models.User) (username string, err error) {
+	err = g.UserRepository.UpdateLastCheck(user.Username)
 
+	if err != nil {
+		g.log.Errorw("failed to user last update",
+			"error", err,
+			"username", user.Username,
+		)
+	}
 	currGistList, err := g.GistRepository.GetByUserID(user.ID.Hex())
 	if err != nil {
 		g.log.Errorw("failed to get gist list from DB by UserID",
@@ -192,7 +199,7 @@ func gistRefreshAction(g *GistHandler, user models.User) (username string, err e
 				"gist", v,
 			)
 		}
-		g.UserRepository.UpdateLastCheck(user.Username)
+
 		g.GistRepository.Create(v.ID, user.ID.Hex(), referenceID)
 	}
 	return user.Username, err
